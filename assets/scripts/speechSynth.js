@@ -3,7 +3,7 @@
 const synth = window.speechSynthesis;
 let voices;
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   setTimeout(() => populateVoices(), 50);
@@ -11,44 +11,52 @@ function init() {
 }
 
 function populateVoices() {
-  const voiceSelect = document.querySelector('#voice-select');
+  const voiceSelect = document.querySelector("#voice-select");
   voices = synth.getVoices();
-  voices.forEach(voice => {
-    const option = document.createElement('option');
+  voices.forEach((voice) => {
+    const option = document.createElement("option");
     option.innerHTML = `${voice.name} (${voice.lang})`;
-    option.setAttribute('value', `${voice.name} (${voice.lang})`);
-    option.setAttribute('data-index', voiceSelect.children.length - 1)
+    option.setAttribute("value", `${voice.name} (${voice.lang})`);
+    option.setAttribute("data-index", voiceSelect.children.length - 1);
     voiceSelect.appendChild(option);
   });
 }
 
 function bindListeners() {
-  const talkBtn = document.querySelector('#explore > button');
-  const textarea = document.querySelector('#explore > textarea');
+  const talkBtn = document.querySelector("#explore > button");
+  const textarea = document.querySelector("#explore > textarea");
 
-  talkBtn.addEventListener('click', () => {
+  talkBtn.addEventListener("click", () => {
     let textToSpeak = textarea.value;
     let utterThis = new SpeechSynthesisUtterance(textToSpeak);
     utterThis.voice = voices[getOptionIndex()];
+
+    // Get speech rate if the rate control is visible
+    const rateControl = document.getElementById("rate-control");
+    if (!rateControl.classList.contains("hidden")) {
+      const rateValue = parseFloat(document.getElementById("rate").value);
+      utterThis.rate = rateValue;
+    }
+
     synth.speak(utterThis);
     openMouth();
-  })
+  });
 }
 
 function getOptionIndex() {
-  const voiceSelect = document.querySelector('#voice-select');
+  const voiceSelect = document.querySelector("#voice-select");
   const option = voiceSelect.options[voiceSelect.selectedIndex];
-  return option.getAttribute('data-index');
+  return option.getAttribute("data-index");
 }
 
 function openMouth() {
-  let face = document.querySelector('#explore > img');
-  face.setAttribute('src', 'assets/images/smiling-open.png');
+  let face = document.querySelector("#explore > img");
+  face.setAttribute("src", "assets/images/smiling-open.png");
   setTimeout(() => {
     if (synth.speaking) {
       openMouth();
     } else {
-      face.setAttribute('src', 'assets/images/smiling.png');
+      face.setAttribute("src", "assets/images/smiling.png");
     }
   }, 100);
 }
