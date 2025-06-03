@@ -12,4 +12,4 @@
 
 ## Google Analytics
 
-![./screenshots/google-analytics.png](./screenshots/google-analytics.png)
+![/screenshots/google-analytics.png](/screenshots/google-analytics.png)
