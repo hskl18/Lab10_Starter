@@ -9,3 +9,7 @@
 ## Feature Requests & Roadmap
 
 - Canny.io Feature Request Board: [https://cse110-lab10-hskl18.canny.io/feature-requests](https://cse110-lab10-hskl18.canny.io/feature-requests)
+
+## Google Analytics
+
+![./screenshots/google-analytics.png](./screenshots/google-analytics.png)
